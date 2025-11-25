@@ -5,8 +5,8 @@ import "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 import "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol";
 import "lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 import "lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol";
-import "lib/openzeppelin-contracts/contracts/src/v0.8/automation/AutomationCompatible.sol";
-import "lib/openzeppelin-contracts/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "lib/chainlink-brownie-contracts/contracts/src/v0.8/automation/AutomationCompatible.sol";
+import "lib/chainlink-brownie-contracts/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 
 // Interfaces for Aave and Uniswap
 interface IPool {
@@ -61,6 +61,7 @@ contract SmartProfitTaker is Ownable, ReentrancyGuard, AutomationCompatibleInter
     event Deposit(address indexed user, uint256 amount, VaultMode mode);
     event Withdrawal(address indexed user, uint256 amount, address asset);
     event RebalanceExecuted(VaultMode newMode, uint256 price, uint256 amountSwapped);
+    event ThresholdsUpdated(uint256 newHigh, uint256 newLow);
 
     constructor(
         address _weth,
@@ -252,6 +253,17 @@ contract SmartProfitTaker is Ownable, ReentrancyGuard, AutomationCompatibleInter
             });
 
         amountOut = uniswapRouter.exactInputSingle(params);
+    }
+
+    /**
+     * @notice Updates the price thresholds.
+     * @dev Use this for testing or adjusting strategy. 
+     * CRITICAL FOR HACKATHON DEMOS to force a swap.
+     */
+    function setThresholds(uint256 _highThreshold, uint256 _lowThreshold) external onlyOwner {
+        highThreshold = _highThreshold;
+        lowThreshold = _lowThreshold;
+        emit ThresholdsUpdated(_highThreshold, _lowThreshold);
     }
 
     // Allow contract to receive ETH when unwrapping

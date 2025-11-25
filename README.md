@@ -1,72 +1,52 @@
-## Foundry
+# 📈 Smart Profit Taker Vault
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+**Automated ETH Accumulation & Volatility Protection**
 
-Foundry consists of:
+> 🏆 Built for the Contract.dev Early Builder Hackathon (November-December 2025)
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## 📖 Overview
 
-## Documentation
+**Smart Profit Taker** is a DeFi vault that automates the "Buy Low, Sell High" strategy while generating passive yield.
 
-https://book.getfoundry.sh/
+Instead of keeping funds idle, the vault keeps assets fully deployed in **Aave V3** to earn lending interest[cite: 3, 8]. [cite_start]It utilizes **Chainlink Automation** and **Chainlink Price Feeds** to monitor the market 24/7[cite: 4, 5]. When ETH hits a "Take Profit" price, the vault automatically swaps to USDC. When ETH hits a "Buy Dip" price, it swaps back to ETH[cite: 6, 7].
 
-## Usage
+## 🧩 Architecture
 
-### Build
+The system relies on a central interaction between three protocols[cite: 9]:
 
-```shell
-$ forge build
-```
+1.  **Aave V3/V2:** Used for holding funds (ETH or USDC) to generate continuous yield[cite: 2].
+2.  **Uniswap V3:** Used for atomic swapping of assets during rebalancing[cite: 6].
+3.  **Chainlink:**
+    * **Price Feeds:** Provides accurate, tamper-proof ETH/USD data[cite: 5].
+    * **Automation:** Triggers the `performUpkeep` function to execute swaps without manual intervention[cite: 4].
 
-### Test
+### Rebalancing Logic
+* **ETH Mode:** Funds are in Aave as WETH.
+    * *Trigger:* Price > High Threshold.
+    * *Action:* Withdraw WETH → Swap to USDC → Supply USDC to Aave[cite: 6].
+* **USDC Mode:** Funds are in Aave as USDC.
+    * *Trigger:* Price < Low Threshold.
+    * *Action:* Withdraw USDC → Swap to WETH → Supply WETH to Aave[cite: 6].
 
-```shell
-$ forge test
-```
+## 🛠️ Tech Stack
 
-### Format
+* **Smart Contracts:** Solidity (v0.8.20)
+* **Framework:** Foundry (Forge, Cast)
+* **Integrations:**
+    * Chainlink Automation & Data Feeds
+    * Uniswap V3 SwapRouter
+    * Aave V3 Pool
+* **Frontend:** Next.js, Wagmi, RainbowKit
 
-```shell
-$ forge fmt
-```
+## 🚀 Getting Started
 
-### Gas Snapshots
+### Prerequisites
+* [Foundry](https://book.getfoundry.sh/getting-started/installation) installed.
+* A wallet with **Sepolia ETH** and **Sepolia LINK**.
 
-```shell
-$ forge snapshot
-```
+### Installation
 
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-Environment setup
-
-- Copy `.env.example` to `.env` and fill values (do not commit `.env`).
-- The repo already ignores `.env`; keep secrets in your local `.env` or CI secrets.
-
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+1. **Clone the repo:**
+   ```bash
+   git clone [https://github.com/yourusername/smart-profit-taker.git](https://github.com/yourusername/smart-profit-taker.git)
+   cd smart-profit-taker
