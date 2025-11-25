@@ -11,7 +11,7 @@
 
 **Erebor** is a DeFi vault designed to protect and grow your treasury automatically. Like the vast wealth of the Lonely Mountain, this vault manages your assets with precision.
 
-Instead of keeping funds idle, Erebor keeps assets fully deployed in **Aave V3/V2** to earn lending interest. It utilizes **Chainlink Automation** and **Chainlink Price Feeds** to execute a "Buy Low, Sell High" strategy 24/7 without manual intervention.
+Instead of keeping funds idle, Erebor keeps assets fully deployed in **Aave V3** to earn lending interest. It utilizes **Chainlink Automation** and **Chainlink Price Feeds** to execute a "Buy Low, Sell High" strategy 24/7 without manual intervention.
 
 * **Take Profit:** When ETH rises, it swaps to USDC to lock in gains.
 * **Buy the Dip:** When ETH falls, it swaps back to ETH to accumulate more tokens.
@@ -20,8 +20,8 @@ Instead of keeping funds idle, Erebor keeps assets fully deployed in **Aave V3/V
 
 The system relies on a central interaction between three protocols:
 
-1.  **Aave V3/V2:** Used for holding funds (ETH or USDC) to generate continuous yield.
-2.  **Uniswap V3:** Used for atomic swapping of assets during rebalancing.
+1.  **Aave V3:** Used for holding funds (ETH or USDC) to generate continuous yield.
+2.  **Uniswap V3/V2:** Used for atomic swapping of assets during rebalancing.
 3.  **Chainlink:**
     * **Price Feeds:** Provides accurate, tamper-proof ETH/USD data.
     * **Automation:** Triggers the `performUpkeep` function to execute swaps automatically.
