@@ -40,8 +40,8 @@ The system relies on a central interaction between three protocols:
 * **Framework:** Foundry (Forge, Cast)
 * **Integrations:**
     * Chainlink Automation & Data Feeds
-    * Uniswap V3 SwapRouter
-    * Aave V3/V2 Pool
+    * Uniswap V3/V2 SwapRouter
+    * Aave V3 Pool
 * **Frontend:** Next.js, Wagmi, RainbowKit
 
 ## 🚀 Getting Started
