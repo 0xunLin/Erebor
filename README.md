@@ -41,14 +41,14 @@ The system relies on a central interaction between three protocols:
 * **Integrations:**
     * Chainlink Automation & Data Feeds
     * Uniswap V3 SwapRouter
-    * Aave V3 Pool
+    * Aave V3/V2 Pool
 * **Frontend:** Next.js, Wagmi, RainbowKit
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 * [Foundry](https://book.getfoundry.sh/getting-started/installation) installed.
-* A wallet with **Sepolia ETH** and **Sepolia LINK**.
+* [contract.dev](https://app.contract.dev/).
 
 ### Installation
 
@@ -68,7 +68,7 @@ The system relies on a central interaction between three protocols:
     Create a `.env` file in the root directory:
     ```bash
     PRIVATE_KEY=your_private_key
-    STAGENET_RPC_URL=your_rpc_url
+    STAGENET_RPC_URL=your_stagenet_rpc_url
     ```
 
 ### 🧪 Testing
